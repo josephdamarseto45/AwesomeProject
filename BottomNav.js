@@ -54,7 +54,7 @@ export default function App() {
         <FontAwesomeIcon icon={faUserGraduate} color={color} size={20} />
         ),}}/>
 
-      <Tab.Screen name="GitHUB" component={WebScreen} options={{
+      <Tab.Screen name="Github" component={WebScreen} options={{
               headerShown: false,
               tabBarIcon: ({ color }) => (
               <FontAwesomeIcon icon={faGithub} color={color} size={20} />

@@ -1,141 +1,121 @@
-import { View, Text, StyleSheet, TouchableOpacity, FlatList, Button, Alert } from 'react-native'
-import React, { useEffect, useState } from 'react'
-import { SafeAreaView } from 'react-native-safe-area-context'
-import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
-import { faGraduationCap, faChevronRight } from '@fortawesome/free-solid-svg-icons'
-
+import React, { useState, useEffect } from 'react';
+import { View, Text, StyleSheet, TouchableOpacity, FlatList, Button, Alert } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+import { faGraduationCap, faChevronRight } from '@fortawesome/free-solid-svg-icons';
 
 const Listdata = () => {
+  const jsonUrl = 'http://192.168.100.9:3000/mahasiswa';
+  const [isLoading, setLoading] = useState(true);
+  const [dataUser, setDataUser] = useState([]);
+  const [refresh, setRefresh] = useState(false);
 
-    const jsonUrl = 'http://192.168.100.9:3000/mahasiswa';
-    const [isLoading, setLoading] = useState(true);
-    const [dataUser, setDataUser] = useState({});
-    const [refresh, setRefresh] = useState(false);
+  const fetchData = () => {
+    setLoading(true);
+    fetch(jsonUrl)
+      .then((response) => response.json())
+      .then((json) => {
+        setDataUser(json);
+      })
+      .catch((error) => console.error(error))
+      .finally(() => setLoading(false));
+  };
 
-    useEffect(() => {
-        fetch(jsonUrl)
-          .then((response) => response.json())
-          .then((json) => {
-            console.log(json)
-            setDataUser(json)
-          })
-          .catch((error) => console.error(error))
-          .finally(() => setLoading(false));
-      }, []);
-    
-      function refreshPage() {
-        fetch(jsonUrl)
-          .then((response) => response.json())
-          .then((json) => {
-            console.log(json)
-            setDataUser(json)
-          })
-          .catch((error) => console.error(error))
-          .finally(() => setLoading(false));
-      }
-     
-      function deleteData(id) {
-        fetch(jsonUrl + '/' + id, {
-          method: 'DELETE',
-        })
-          .then((response) => response.json())
-          .then((json) => {
-            console.log(json);
-            alert('Data terhapus');
-            refreshPage();
-          })
-       }
-       
+  useEffect(() => {
+    fetchData();
+  }, []);
 
- return (
-    <SafeAreaView>
-    {isLoading ? (
-      <View style={{ alignItems: 'center', marginTop: 20 }}>
-        <Text style={styles.cardtitle}>Loading...</Text>
-      </View>
-    ) : (
-      <View>
+  const refreshPage = () => {
+    setRefresh(true);
+    fetchData();
+    setRefresh(false);
+  
+  };
+
+  function deleteData(id) {
+    fetch(jsonUrl + '/' + id, {
+      method: 'DELETE',
+    })
+      .then((response) => response.json())
+      .then((json) => {
+        console.log(json);
+        alert('Data terhapus');
+        refreshPage();
+      })
+  }
+
+
+  return (
+    <SafeAreaView style={styles.container}>
+      {isLoading ? (
+        <View style={{ alignItems: 'center', marginTop: 20 }}>
+          <Text style={styles.cardtitle}>Loading...</Text>
+        </View>
+      ) : (
         <FlatList
           style={{ marginBottom: 0 }}
           data={dataUser}
-          onRefresh={() => { refreshPage() }}
+          onRefresh={refreshPage}
           refreshing={refresh}
-          keyExtractor={({ id }, index) => id}
+          keyExtractor={(item) => item.id.toString()}
           renderItem={({ item }) => (
-            <View>
-   <TouchableOpacity>
-             <View style={styles.card}>
-               <View style={styles.avatar}>
-                 <FontAwesomeIcon icon={faGraduationCap} size={50} color={item.color} />
-               </View>
-               <View>
-                 <Text style={styles.cardtitle}>{item.first_name} {item.last_name}</Text>
-                 <Text>{item.kelas}</Text>
-                 <Text>{item.gender}</Text>
-               </View>
-               <View style={{ flex: 1, justifyContent: 'center', alignItems: 'flex-end' }}>
-                 <FontAwesomeIcon icon={faChevronRight} size={20} />
-               </View>
-             </View>
-           </TouchableOpacity>
-           <View style={styles.form}>
- <Button title="Hapus"
-  onPress={() => Alert.alert('Hapus data', 'Yakin akan menghapus data ini?', [
-   { text: 'Tidak', onPress: () => console.log('button tidak') },
-   { text: 'Ya', onPress: () => deleteData(item.id) },
-  ])}
-  color={'red'}
- />
-</View>
-
-         </View>
-       )}
-     />
-   </View>
- )}
-</SafeAreaView>
-
- )
-}
-
-export default Listdata
+            <TouchableOpacity>
+              <View style={styles.card}>
+                <View style={styles.avatar}>
+                  <FontAwesomeIcon icon={faGraduationCap} size={50} color={item.color} />
+                </View>
+                <View>
+                  <Text style={styles.cardtitle}>{item.first_name} {item.last_name}</Text>
+                  <Text>{item.kelas}</Text>
+                  <Text>{item.gender}</Text>
+                </View>
+                <View style={{ flex: 1, justifyContent: 'center', alignItems: 'flex-end' }}>
+                  <FontAwesomeIcon icon={faChevronRight} size={20} />
+                </View>
+              </View>
+              <View style={styles.form}>
+                <Button
+                  title="Hapus"
+                  onPress={() => Alert.alert('Hapus data', 'Yakin akan menghapus data ini?', [
+                    { text: 'Tidak', onPress: () => console.log('Tidak') },
+                    { text: 'Ya', onPress: () => deleteData(item.id) },
+                  ])}
+                  color="red"
+                />
+              </View>
+            </TouchableOpacity>
+          )}
+        />
+      )}
+    </SafeAreaView>
+  );
+};
 
 const styles = StyleSheet.create({
-    title: {
-      paddingVertical: 12,
-      backgroundColor: '#333',
-      color: 'white',
-      fontSize: 20,
-      fontWeight: 'bold',
-      textAlign: 'center',
-    },
-    avatar: {
-      borderRadius: 100,
-      width: 80,
-    },
-    cardtitle: {
-      fontSize: 14,
-      fontWeight: 'bold',
-    },
-    card: {
-        flexDirection: 'row',
-        padding: 20,
-        borderRadius: 10,
-        backgroundColor: 'white',
-        shadowColor: '#000',
-        shadowOffset: {
-          width: 1,
-          height: 1,
-        },
-        shadowOpacity: 0.20,
-        shadowRadius: 1.41,
-        elevation: 2,
-        marginHorizontal: 20,
-        marginVertical: 7
-      },
-      form: {
-        paddingHorizontal: 20,
-        paddingTop: 5,
-        paddingBottom: 20,
-      },
-     })
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+  },
+  form: {
+    padding: 10,
+  },
+  card: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    padding: 15,
+    marginVertical: 5,
+    marginHorizontal: 10,
+    backgroundColor: '#f9f9f9',
+    borderRadius: 8,
+    elevation: 2,
+  },
+  avatar: {
+    marginRight: 15,
+  },
+  cardtitle: {
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
+});
+
+export default Listdata;

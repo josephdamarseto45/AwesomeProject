@@ -17,7 +17,7 @@ const Createdata = () => {
             kelas: kelas,
             gender: gender,
         };
-        fetch('http://192.168.100.133:3000/mahasiswa', {
+        fetch('http://192.168.100.9:3000/mahasiswa', {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',

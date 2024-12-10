@@ -17,11 +17,13 @@ const Mahasiswa = () => {
             <FontAwesomeIcon icon={faUserGraduate} size={50} color={ item.gender == 'male' ? 'lightblue' : 'pink'} />
           </View>
           <View>
+            
             <Text style={styles.cardtitle}>{item.first_name} {item.last_name}</Text>
             <FontAwesomeIcon icon={item.gender == 'male' ? faMars : faVenus}
             color={ item.gender == 'male' ? 'lightblue' : 'pink'}
             size={16}/>
-            <Text>{item.class}</Text>
+
+            <Text>Kelas : {item.class}</Text>
             <Text>{item.latitude}, {item.longitude}</Text>
           </View>
         </View>
@@ -47,7 +49,7 @@ const styles = StyleSheet.create({
     width: 80,
   },
   cardtitle: {
-    fontSize: 16,
+    fontSize: 15,
     fontWeight: 'bold',
   },
   card: {

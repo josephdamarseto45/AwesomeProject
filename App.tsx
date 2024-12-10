@@ -37,7 +37,7 @@ function Section({children, title}: SectionProps): React.JSX.Element {
         style={[
           styles.sectionTitle,
           {
-            color: 'green',
+            color: 'blue',
           },
         ]}>
         {title}
@@ -83,7 +83,7 @@ function App(): React.JSX.Element {
             22/502852/SV/21451
           </Section>
           <Section title="Class">
-            B
+            A
           </Section>
           <Section title="Social media link :">
             Found me here!

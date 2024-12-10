@@ -1,34 +1,66 @@
 {
   "mahasiswa": [
     {
-      "id": "487e",
-      "mahasiswa": [
-        {
-          "id": "1",
-          "first_name": "Alia",
-          "last_name": "Maulana Resti",
-          "email": "aliamaulanaresti@mail.ugm.ac.id",
-          "kelas": "A",
-          "gender": "female",
-          "latitude": -7.6926245,
-          "longitude": 110.6718403
-        }
-      ]
+      "id": "1",
+      "first_name": "Joseph",
+      "last_name": "Damarseto",
+      "email": "joseph.damarseto@mail.ugm.ac.id",
+      "class": "A",
+      "gender": "Male",
+      "latitude": -7.7137693,
+      "longitude": 110.3278857
     },
     {
-      "id": "fe4d",
-      "mahasiswa": [
-        {
-          "id": "2",
-          "first_name": "Joseph",
-          "last_name": "Damarseto",
-          "email": "josephdamarseto@mail.ugm.ac.id",
-          "kelas": "A",
-          "gender": "male",
-          "latitude": -7.6926245,
-          "longitude": 110.6718403
-        }
-      ]
+      "id": "5",
+      "first_name": "Josh",
+      "last_name": "Damato",
+      "email": "JoshDamato@mail.ugm.ac.id",
+      "class": "B",
+      "gender": "Male",
+      "latitude": -7.7248074,
+      "longitude": 110.6879624
+    },
+    {
+      "id": "de1e",
+      "first_name": "Damarseto",
+      "last_name": "Joseph",
+      "email": "DamarsetoJoseph@mail.ugm.ac.id",
+      "class": "B",
+      "gender": "Male"
+    },
+    {
+      "id": "7df4",
+      "first_name": "Damato",
+      "last_name": "Josh",
+      "email": "JoshDamato@email.com",
+      "class": "B",
+      "gender": "Male"
+    },
+    {
+      "id": "6329",
+      "first_name": "aaa",
+      "last_name": "aaaa",
+      "email": "aaaa",
+      "kelas": "a",
+      "gender": "aaaa",
+      "class": "a"
+    },
+    {
+      "id": "f015",
+      "first_name": "aaa",
+      "last_name": "aaaa",
+      "email": "aaaa",
+      "kelas": "a",
+      "gender": "aaaa",
+      "class": "a"
+    },
+    {
+      "id": "3aaa",
+      "first_name": "aaaaa",
+      "last_name": "aaaaa",
+      "email": "aaaa",
+      "kelas": "aaaa",
+      "gender": "aaaa"
     }
   ]
 }
